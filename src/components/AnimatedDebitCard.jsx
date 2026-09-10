@@ -184,7 +184,7 @@ export default function AnimatedDebitCard() {
       onClick={replay}
       role="img"
       aria-label="Animated nSERVE debit card — click to replay"
-      title="Click to replay animation"
+      // title="Click to replay animation"
     >
       <svg
         className="pay-card-svg"

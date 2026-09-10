@@ -70,7 +70,7 @@ export default function Footer() {
               </nav>
             </div>
 
-            <div>
+            {/* <div>
               <p className="footer-col-label">Contact</p>
               <a href={`mailto:${CONTACT_EMAIL}`} className="footer-email-card">
                 <span className="footer-email-icon">
@@ -83,12 +83,12 @@ export default function Footer() {
               </a>
               <p className="footer-note">
                 <MapPin className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                {/* <span>
+                <span>
                   On the same domain, FX and PSP loaders help visitors choose their path — Know
                   More routes users to the right nSERVE experience.
-                </span> */}
+                </span>
               </p>
-            </div>
+            </div> */}
           </div>
         </motion.div>
 
