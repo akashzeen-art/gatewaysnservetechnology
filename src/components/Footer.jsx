@@ -83,10 +83,10 @@ export default function Footer() {
               </a>
               <p className="footer-note">
                 <MapPin className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                <span>
+                {/* <span>
                   On the same domain, FX and PSP loaders help visitors choose their path — Know
                   More routes users to the right nSERVE experience.
-                </span>
+                </span> */}
               </p>
             </div>
           </div>
