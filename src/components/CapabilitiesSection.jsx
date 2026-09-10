@@ -82,7 +82,6 @@ export default function CapabilitiesSection() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const sectionRef = useRef(null);
-  const pickRefs = useRef([]);
   const progressBarRef = useRef(null);
   const pickProgressRef = useRef(null);
   const [inView, setInView] = useState(false);
@@ -153,9 +152,7 @@ export default function CapabilitiesSection() {
   }, [inView, paused, applyProgress]);
 
   useEffect(() => {
-    const node = pickRefs.current[active];
-    if (node) node.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-    // Re-bind progress fill to the newly active picker row
+    // Re-bind progress fill to the newly active picker row (do not scroll the page)
     applyProgress(progressRef.current);
   }, [active, applyProgress]);
 
@@ -320,9 +317,6 @@ export default function CapabilitiesSection() {
                 <button
                   key={item.id}
                   id={`cap-option-${item.id}`}
-                  ref={(el) => {
-                    pickRefs.current[index] = el;
-                  }}
                   type="button"
                   role="option"
                   aria-selected={isActive}
