@@ -10,6 +10,7 @@ import {
   Building2,
   Globe2,
   Sparkles,
+  Send,
 } from 'lucide-react';
 
 const ease = [0.22, 1, 0.36, 1];
@@ -159,25 +160,26 @@ export default function ContactSection() {
   return (
     <section id="contact" className="contact-section relative py-20 sm:py-24 lg:py-28 overflow-hidden">
       <div className="absolute inset-0 bg-[#F5F7FB]" />
-      <div className="absolute inset-0 grid-bg opacity-25" aria-hidden="true" />
+      <div className="absolute inset-0 grid-bg opacity-20" aria-hidden="true" />
       <div
         className="absolute inset-0"
         style={{
           backgroundImage:
-            'radial-gradient(ellipse at 15% 0%, rgba(234,88,12,0.12), transparent 42%), radial-gradient(ellipse at 92% 70%, rgba(14,165,233,0.1), transparent 40%)',
+            'radial-gradient(ellipse at 8% 10%, rgba(234,88,12,0.14), transparent 40%), radial-gradient(ellipse at 95% 80%, rgba(14,165,233,0.12), transparent 42%)',
         }}
         aria-hidden="true"
       />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="contact-layout">
-          <motion.div
-            className="contact-intro"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.7, ease }}
-          >
+        <motion.div
+          className="contact-shell"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.7, ease }}
+        >
+          <div className="contact-intro">
+            <div className="contact-intro-glow" aria-hidden="true" />
             <p className="contact-eyebrow">Start the conversation</p>
             <h2 className="contact-heading">
               Have a service you want to launch in India?
@@ -224,16 +226,9 @@ export default function ContactSection() {
               </span>
               <ArrowRight className="contact-email-arrow h-4 w-4" />
             </a>
-          </motion.div>
+          </div>
 
-          <motion.form
-            onSubmit={onSubmit}
-            className="contact-form"
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.7, delay: 0.08, ease }}
-          >
+          <form onSubmit={onSubmit} className="contact-form">
             <div className="contact-form-accent" aria-hidden="true" />
             <div className="contact-form-header">
               <div>
@@ -245,6 +240,15 @@ export default function ContactSection() {
               <span className="contact-form-badge">
                 <Clock3 className="h-3.5 w-3.5" />
                 ~2 min
+              </span>
+            </div>
+
+            <div className="contact-form-tabs" aria-hidden="true">
+              <span className="is-on">
+                <span>1</span> Business
+              </span>
+              <span className="is-on">
+                <span>2</span> Contact
               </span>
             </div>
 
@@ -277,9 +281,15 @@ export default function ContactSection() {
             </div>
 
             <button type="submit" className="contact-submit">
+              <Send className="h-4 w-4" />
               <span>Send India launch enquiry</span>
               <ArrowRight className="h-4 w-4" />
             </button>
+
+            <p className="contact-form-foot">
+              Submits via your email client to{' '}
+              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            </p>
 
             {submitted && (
               <motion.p
@@ -294,8 +304,8 @@ export default function ContactSection() {
                 </span>
               </motion.p>
             )}
-          </motion.form>
-        </div>
+          </form>
+        </motion.div>
       </div>
     </section>
   );
