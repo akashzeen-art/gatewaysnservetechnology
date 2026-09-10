@@ -309,7 +309,7 @@ export default function AnimatedDebitCard() {
           </g>
         </g>
       </svg>
-      <p className="pay-card-hint">Click card to replay</p>
+      {/* <p className="pay-card-hint">Click card to replay</p> */}
     </div>
   );
 }
