@@ -1,77 +1,56 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 
+const HERO_VIDEO_DESKTOP =
+  'https://vz-7fee017a-811.b-cdn.net/b155e413-dae6-4a70-bbcc-3a3e71f791eb/play_480p.mp4';
+const HERO_VIDEO_MOBILE =
+  'https://vz-7fee017a-811.b-cdn.net/c994af8a-b534-4767-96e0-2823699275b2/play_480p.mp4';
+
 /**
- * Mountains parallax hero — same structure & scroll math as
- * https://aryan-tayal.github.io/Mountains-Parallax/
+ * Full-bleed video hero, then intro section below.
  */
 export default function Hero() {
-  const mountainLeftRef = useRef(null);
-  const mountainRightRef = useRef(null);
-  const clouds1Ref = useRef(null);
-  const clouds2Ref = useRef(null);
-  const textRef = useRef(null);
-  const manRef = useRef(null);
+  const videoRef = useRef(null);
+  const [videoSrc, setVideoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+      ? HERO_VIDEO_MOBILE
+      : HERO_VIDEO_DESKTOP,
+  );
 
   useEffect(() => {
-    const onScroll = () => {
-      const value = window.scrollY;
-      const mountainLeft = mountainLeftRef.current;
-      const mountainRight = mountainRightRef.current;
-      const cloud1 = clouds1Ref.current;
-      const cloud2 = clouds2Ref.current;
-      const text = textRef.current;
-      const man = manRef.current;
-      if (!mountainLeft || !mountainRight || !cloud1 || !cloud2 || !text || !man) return;
-
-      mountainLeft.style.left = `-${value / 0.7}px`;
-      cloud2.style.left = `-${value * 2}px`;
-      mountainRight.style.left = `${value / 0.7}px`;
-      cloud1.style.left = `${value * 2}px`;
-
-      // Pin INDIA toward the top under the navbar while scrolling the hero
-      const navOffset = 72;
-      const startOffset =
-        parseFloat(getComputedStyle(text).marginTop) || text.offsetTop || 96;
-      const maxUp = Math.max(startOffset - navOffset, 0);
-      const shift = Math.min(value * 1.15, maxUp);
-      text.style.transform = `translateY(-${shift}px)`;
-      text.style.zIndex = value > 8 ? '40' : '4';
-
-      man.style.height = `${Math.max(window.innerHeight - value, 0)}px`;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const sync = () => {
+      setVideoSrc(mq.matches ? HERO_VIDEO_MOBILE : HERO_VIDEO_DESKTOP);
     };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.load();
+    video.play().catch(() => {});
+  }, [videoSrc]);
 
   return (
     <>
       <section id="top" className="parallax-top" aria-label="Hero">
-        <img src="/parallax/bg.jpg" id="bg" alt="" />
-        <h1 id="text" ref={textRef}>
-          INDIA
-        </h1>
-        <img src="/parallax/man.png" id="man" ref={manRef} alt="" />
-        <img src="/parallax/clouds_1.png" id="clouds_1" ref={clouds1Ref} alt="" />
-        <img src="/parallax/clouds_2.png" id="clouds_2" ref={clouds2Ref} alt="" />
-        <img
-          src="/parallax/mountain_left.png"
-          id="mountain_left"
-          ref={mountainLeftRef}
-          alt=""
+        <video
+          ref={videoRef}
+          key={videoSrc}
+          id="hero-video"
+          className="parallax-hero-video"
+          src={videoSrc}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
         />
-        <img
-          src="/parallax/mountain_right.png"
-          id="mountain_right"
-          ref={mountainRightRef}
-          alt=""
-        />
+        <div className="parallax-hero-scrim" aria-hidden="true" />
       </section>
 
       <section id="sec" className="parallax-sec" aria-label="nSERVE introduction">

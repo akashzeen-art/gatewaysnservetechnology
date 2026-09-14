@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50"
+      className="relative z-50 w-full"
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.55, ease }}
@@ -43,7 +43,7 @@ export default function Navbar() {
         className={`transition-all duration-500 ${
           scrolled || mobileOpen
             ? 'mx-3 sm:mx-4 mt-3 rounded-2xl border border-slate-200/80 bg-white/85 backdrop-blur-xl shadow-[0_12px_40px_-18px_rgba(15,23,42,0.25)]'
-            : 'mx-0 mt-0 rounded-none border-transparent bg-transparent shadow-none'
+            : 'mx-0 mt-0 rounded-none border-b border-slate-200/70 bg-[#F5F7FB]/95 backdrop-blur-md shadow-none'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[4.25rem] flex items-center justify-between gap-4">
@@ -61,17 +61,11 @@ export default function Navbar() {
             />
             <div className="leading-tight">
               <span
-                className={`font-display text-lg sm:text-xl font-extrabold tracking-tight block ${
-                  scrolled || mobileOpen ? 'nav-tricolor-scrolled' : 'nav-tricolor'
-                }`}
+                className="font-display text-lg sm:text-xl font-extrabold tracking-tight block nav-tricolor-scrolled"
               >
                 nSERVE
               </span>
-              <span
-                className={`hidden sm:block text-[10px] tracking-[0.14em] uppercase font-bold ${
-                  scrolled || mobileOpen ? 'nav-tricolor-scrolled' : 'nav-tricolor'
-                }`}
-              >
+              <span className="hidden sm:block text-[10px] tracking-[0.14em] uppercase font-bold nav-tricolor-scrolled">
                 Global Services. Local Possibilities.
               </span>
             </div>
@@ -82,9 +76,7 @@ export default function Navbar() {
               <a
                 key={label}
                 href={href}
-                className={`relative px-3.5 py-2 text-sm font-extrabold tracking-wide transition-opacity duration-200 group hover:opacity-80 ${
-                  scrolled || mobileOpen ? 'nav-tricolor-scrolled' : 'nav-tricolor'
-                }`}
+                className="relative px-3.5 py-2 text-sm font-extrabold tracking-wide transition-opacity duration-200 group hover:opacity-80 nav-tricolor-scrolled"
               >
                 {label}
                 <span className="absolute left-3.5 right-3.5 bottom-1 h-px origin-left scale-x-0 bg-gradient-to-r from-[#ff9933] via-white to-[#138808] transition-transform duration-300 group-hover:scale-x-100" />
@@ -95,22 +87,14 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <a
               href="#contact"
-              className={`hidden sm:inline-flex items-center gap-1.5 rounded-full text-sm font-extrabold px-4 py-2.5 transition-colors duration-300 ${
-                scrolled || mobileOpen
-                  ? 'bg-gradient-to-r from-[#ff9933] via-orange-500 to-[#138808] text-white'
-                  : 'bg-white/95 text-slate-900 hover:bg-white'
-              }`}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-full text-sm font-extrabold px-4 py-2.5 transition-colors duration-300 bg-gradient-to-r from-[#ff9933] via-orange-500 to-[#138808] text-white"
             >
               Start India Launch
               <ArrowRight className="h-4 w-4" />
             </a>
             <button
               type="button"
-              className={`md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl transition-colors ${
-                scrolled || mobileOpen
-                  ? 'text-slate-700 hover:bg-slate-100'
-                  : 'text-white hover:bg-white/15'
-              }`}
+              className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl transition-colors text-slate-700 hover:bg-slate-100"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}

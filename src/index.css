@@ -1095,17 +1095,16 @@
   }
 }
 
-/* Mountains parallax hero — same as Aryan Tayal demo */
+/* Full-bleed video hero (sits below sticky navbar) */
 .parallax-top {
   position: relative;
   width: 100%;
-  height: 100svh;
-  min-height: 560px;
+  height: calc(100svh - 5.5rem);
+  min-height: 420px;
+  margin-top: 0.75rem;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background: #1e3a5f;
+  background: #0f172a;
+  border-radius: 0;
 }
 
 .parallax-top::before {
@@ -1116,73 +1115,29 @@
   height: 200px;
   width: 100%;
   background: linear-gradient(to top, #f5f7fb, transparent);
-  z-index: 1000;
-  pointer-events: none;
-}
-
-.parallax-top img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-  will-change: left, height;
-}
-
-.parallax-top #man {
-  top: auto;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: bottom center;
-  z-index: 5;
-}
-
-.parallax-top #bg {
-  z-index: 1;
-}
-
-.parallax-top #clouds_1,
-.parallax-top #clouds_2 {
-  z-index: 2;
-}
-
-.parallax-top #mountain_left,
-.parallax-top #mountain_right {
   z-index: 3;
+  pointer-events: none;
 }
 
-.parallax-top #text {
-  position: relative;
-  z-index: 4;
-  margin: 0;
-  margin-top: clamp(5.5rem, 14vh, 7.5rem);
-  font-family: 'Oswald', var(--font-display), sans-serif;
-  font-size: clamp(4.5rem, 16vw, 10rem);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1;
+.parallax-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
   pointer-events: none;
-  will-change: transform;
-  transition: z-index 0s;
-  /* Indian tricolour */
-  background: linear-gradient(
-    180deg,
-    #ff9933 0%,
-    #ff9933 32%,
-    #ffffff 32%,
-    #ffffff 68%,
-    #138808 68%,
-    #138808 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 6px 24px rgba(15, 23, 42, 0.45));
+}
+
+.parallax-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, transparent 28%),
+    linear-gradient(0deg, rgba(15, 23, 42, 0.2) 0%, transparent 35%);
+  pointer-events: none;
 }
 
 .tricolor-text {
@@ -1564,10 +1519,6 @@
 }
 
 @media (max-width: 640px) {
-  .parallax-top #text {
-    font-size: clamp(3.5rem, 22vw, 5.5rem);
-  }
-
   .parallax-sec {
     padding: 52px 20px 28px;
   }
