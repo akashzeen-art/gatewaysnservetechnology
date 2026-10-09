@@ -2952,44 +2952,6 @@
   width: min(24rem, 100%);
 }
 
-.preloader-route {
-  display: grid;
-  place-items: center;
-  height: 2.25rem;
-  margin-bottom: 0.9rem;
-}
-
-.preloader-route p {
-  margin: 0;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.preloader-corridor {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #f8fafc;
-}
-
-.preloader-corridor span {
-  color: #ff9933;
-}
-
-.preloader-namaste {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, #ff9933, #ffffff 50%, #22c55e);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
 .preloader-meter {
   display: flex;
   align-items: center;
@@ -3029,10 +2991,6 @@
 @media (max-width: 640px) {
   .preloader-globe {
     width: min(88vw, 50vh);
-  }
-
-  .preloader-corridor {
-    font-size: 0.95rem;
   }
 }
 

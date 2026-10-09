@@ -3,10 +3,10 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5map from '@amcharts/amcharts5/map';
 import am5geodata_worldLow from '@amcharts/amcharts5-geodata/worldLow';
-import { INDIA_ID, countryNames, originMarkets } from '../data/indiaLaunchRoutes';
+import { INDIA_ID, originMarkets } from '../data/indiaLaunchRoutes';
 
-const TOTAL_MS = 3400;
-const FILL_MS = 2800;
+const TOTAL_MS = 4400;
+const FILL_MS = 3800;
 const SAFETY_MS = 9000;
 
 const ease = [0.22, 1, 0.36, 1];
@@ -255,8 +255,6 @@ export default function Preloader({ onDone }) {
 
   // Every route is lit a little before the bar completes.
   const litCount = Math.min(ORIGIN_IDS.length, Math.ceil((progress / 92) * ORIGIN_IDS.length));
-  const currentId = ORIGIN_IDS[Math.max(0, litCount - 1)];
-
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     let frame;
@@ -329,29 +327,6 @@ export default function Preloader({ onDone }) {
           </motion.div>
 
           <div className="preloader-foot">
-            <div className="preloader-route">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.p
-                  key={done ? 'namaste' : currentId}
-                  className={done ? 'preloader-namaste' : 'preloader-corridor'}
-                  initial={{ opacity: 0, y: reducedMotion ? 0 : 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
-                  transition={{ duration: 0.2, ease }}
-                >
-                  {done ? (
-                    'Namaste India!'
-                  ) : (
-                    <>
-                      {countryNames[currentId]}
-                      <span aria-hidden="true">→</span>
-                      India
-                    </>
-                  )}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
             <div className="preloader-meter">
               <span>{done ? 'Gateway ready' : 'Routing payments to India'}</span>
               <span className="preloader-percent">{progress}%</span>
