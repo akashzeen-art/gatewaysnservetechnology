@@ -16,6 +16,7 @@ export default function AnimatedDebitCard() {
     if (!root) return undefined;
 
     const q = gsap.utils.selector(root);
+    const coil = q('#pay-coil')[0];
     const ctx = gsap.context(() => {
       const tl = gsap
         .timeline()
@@ -111,8 +112,8 @@ export default function AnimatedDebitCard() {
           q('#pay-triangle'),
           {
             motionPath: {
-              path: '#pay-coil',
-              align: '#pay-coil',
+              path: coil,
+              align: coil,
               alignOrigin: [0.7, 0.58],
               autoRotate: true,
               start: 0.34,
@@ -125,14 +126,15 @@ export default function AnimatedDebitCard() {
         .to(
           q('#pay-triangle'),
           {
-            motionPath: {
-              path: '#pay-coil',
-              align: '#pay-coil',
+            // Function-based so repeatRefresh picks a new end point each loop.
+            motionPath: () => ({
+              path: coil,
+              align: coil,
               alignOrigin: [0.7, 0.58],
               autoRotate: true,
               start: 0.34,
-              end: () => gsap.utils.random(0.39, 0.42),
-            },
+              end: gsap.utils.random(0.39, 0.42),
+            }),
             overwrite: 'auto',
             repeatRefresh: true,
             yoyo: true,

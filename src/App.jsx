@@ -10,6 +10,7 @@ import WhyPartnerSection from './components/WhyPartnerSection';
 import BridgeCTA from './components/BridgeCTA';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
 
 export default function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function App() {
         <ContactSection />
       </main>
       <Footer />
+      <Preloader />
     </>
   );
 }
