@@ -3260,6 +3260,47 @@
   box-shadow: 0 0 12px rgba(255, 153, 51, 0.5);
 }
 
+.preloader-skip {
+  position: absolute;
+  top: clamp(14px, 3vh, 28px);
+  right: clamp(14px, 3vw, 32px);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.preloader-skip svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+.preloader-skip:hover,
+.preloader-skip:focus-visible {
+  border-color: #ff9933;
+  background: rgba(255, 153, 51, 0.18);
+  color: #fff;
+}
+
+.preloader-skip:focus-visible {
+  outline: 2px solid #ff9933;
+  outline-offset: 3px;
+}
+
 /* Portrait screens have no room beside the globe, so the cards sit on its corners. */
 @media (max-aspect-ratio: 1/1) {
   .preloader {

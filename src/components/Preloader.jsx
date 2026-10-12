@@ -7,7 +7,9 @@ import { INDIA_ID, originMarkets } from '../data/indiaLaunchRoutes';
 
 const TOTAL_MS = 6400;
 const FILL_MS = 5800;
-const SAFETY_MS = 11000;
+/** How long the finished preloader stays on screen before the homepage appears. */
+const HOLD_MS = 2000;
+const SAFETY_MS = 13000;
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -201,7 +203,7 @@ function GatewayGlobe({ litCount, entered, onReady, reducedMotion }) {
         key: 'rotationX',
         from: 10,
         to: -72,
-        duration: TOTAL_MS + 600,
+        duration: TOTAL_MS + HOLD_MS,
         easing: am5.ease.out(am5.ease.cubic),
       });
     }
@@ -303,7 +305,9 @@ export default function Preloader({ onDone }) {
   }, [onScreen]);
 
   useEffect(() => {
-    if (minElapsed && globeReady) setVisible(false);
+    if (!minElapsed || !globeReady) return undefined;
+    const id = window.setTimeout(() => setVisible(false), HOLD_MS);
+    return () => window.clearTimeout(id);
   }, [minElapsed, globeReady]);
 
   if (!onScreen) return <div className="preloader" aria-hidden="true" />;
@@ -325,6 +329,21 @@ export default function Preloader({ onDone }) {
           transition={{ duration: 0.6, ease }}
         >
           <div className="preloader-stars" aria-hidden="true" />
+
+          <motion.button
+            type="button"
+            className="preloader-skip"
+            onClick={() => setVisible(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.2 } }}
+            transition={{ duration: 0.4, delay: 0.6, ease }}
+          >
+            Skip
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 5.5v13l9-6.5-9-6.5Zm10 0v13h3v-13h-3Z" />
+            </svg>
+          </motion.button>
 
           <motion.div
             className="preloader-brand"
