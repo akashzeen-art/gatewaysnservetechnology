@@ -2923,7 +2923,7 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
-  animation: preloader-boom 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  animation: preloader-boom 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
 .preloader-boom-ring {
@@ -2934,7 +2934,7 @@
   border: 2px solid #ff9933;
   box-shadow: 0 0 24px rgba(255, 153, 51, 0.6), inset 0 0 18px rgba(19, 136, 8, 0.5);
   opacity: 0;
-  animation: preloader-shockwave 0.9s ease-out 0.45s both;
+  animation: preloader-shockwave 1.4s ease-out 0.75s both;
   pointer-events: none;
 }
 
@@ -2952,7 +2952,7 @@
 .preloader-tagline-left,
 .preloader-tagline-right {
   display: inline-block;
-  animation: 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+  animation: 1.3s cubic-bezier(0.22, 1, 0.36, 1) 1.5s both;
 }
 
 .preloader-tagline-left {
@@ -3046,7 +3046,7 @@
   box-shadow:
     0 16px 36px rgba(0, 0, 0, 0.45),
     0 0 28px color-mix(in srgb, var(--tone) 28%, transparent);
-  animation: reach-to-center 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: reach-to-center 1.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .reach-card-eyebrow {

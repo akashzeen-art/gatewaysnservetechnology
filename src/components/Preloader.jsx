@@ -5,9 +5,9 @@ import * as am5map from '@amcharts/amcharts5/map';
 import am5geodata_worldLow from '@amcharts/amcharts5-geodata/worldLow';
 import { INDIA_ID, originMarkets } from '../data/indiaLaunchRoutes';
 
-const TOTAL_MS = 4400;
-const FILL_MS = 3800;
-const SAFETY_MS = 9000;
+const TOTAL_MS = 6400;
+const FILL_MS = 5800;
+const SAFETY_MS = 11000;
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -32,10 +32,10 @@ const ORIGIN_IDS = originMarkets.map((m) => m.id);
 
 // Each card flies in from the screen corner named by `pos`.
 const REACH = [
-  { pos: 'tl', value: '1.45 Billion', label: 'Users', delay: 1.2 },
-  { pos: 'bl', value: '740+ Million', label: 'Smartphone users', delay: 1.5 },
-  { pos: 'tr', value: '806 Million', label: 'Internet users', delay: 1.8 },
-  { pos: 'br', value: '554.9 Million', label: 'UPI intent users', delay: 2.1 },
+  { pos: 'tl', value: '1.45 Billion', label: 'Users', delay: 2.3 },
+  { pos: 'bl', value: '740+ Million', label: 'Smartphone users', delay: 2.9 },
+  { pos: 'tr', value: '806 Million', label: 'Internet users', delay: 3.5 },
+  { pos: 'br', value: '554.9 Million', label: 'UPI intent users', delay: 4.1 },
 ];
 
 const COLOR = {
@@ -259,12 +259,30 @@ export default function Preloader({ onDone }) {
   const [globeReady, setGlobeReady] = useState(false);
   const [globeEntered, setGlobeEntered] = useState(false);
   const [minElapsed, setMinElapsed] = useState(false);
+  const [onScreen, setOnScreen] = useState(() => document.visibilityState === 'visible');
   const done = progress >= 100;
 
   // Every route is lit a little before the bar completes.
   const litCount = Math.min(ORIGIN_IDS.length, Math.ceil((progress / 92) * ORIGIN_IDS.length));
+
+  // Safari can load a page before it is shown (top-hit preloading, background tabs);
+  // the story must not start until then or it finishes unseen.
+  useEffect(() => {
+    if (onScreen) return undefined;
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') setOnScreen(true);
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [onScreen]);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    if (!onScreen) {
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
     let frame;
     const start = performance.now();
     const tick = (now) => {
@@ -282,11 +300,13 @@ export default function Preloader({ onDone }) {
       window.clearTimeout(safety);
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [onScreen]);
 
   useEffect(() => {
     if (minElapsed && globeReady) setVisible(false);
   }, [minElapsed, globeReady]);
+
+  if (!onScreen) return <div className="preloader" aria-hidden="true" />;
 
   return (
     <AnimatePresence
