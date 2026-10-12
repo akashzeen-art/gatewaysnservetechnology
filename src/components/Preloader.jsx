@@ -339,6 +339,12 @@ export default function Preloader({ onDone }) {
               <span className="preloader-tagline-left">Payment Gateway</span>
               <span className="preloader-tagline-right">for India</span>
             </span>
+            <span className="preloader-settle">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+              </svg>
+              <span className="preloader-settle-text">Fast, Swift Settlement</span>
+            </span>
           </motion.div>
 
           <div className="preloader-stage">
