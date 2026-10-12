@@ -1107,18 +1107,6 @@
   border-radius: 0;
 }
 
-.parallax-top::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 200px;
-  width: 100%;
-  background: linear-gradient(to top, #f5f7fb, transparent);
-  z-index: 3;
-  pointer-events: none;
-}
-
 .parallax-hero-video {
   position: absolute;
   inset: 0;

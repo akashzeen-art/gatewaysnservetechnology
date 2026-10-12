@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 
 const HERO_VIDEO_DESKTOP =
-  'https://vz-7fee017a-811.b-cdn.net/b155e413-dae6-4a70-bbcc-3a3e71f791eb/play_480p.mp4';
+  'https://vz-7fee017a-811.b-cdn.net/d67b243b-a22d-4e19-bca9-877eb41650b7/play_1080p.mp4';
 const HERO_VIDEO_MOBILE =
   'https://vz-7fee017a-811.b-cdn.net/c994af8a-b534-4767-96e0-2823699275b2/play_480p.mp4';
 
