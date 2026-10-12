@@ -30,6 +30,14 @@ const HUBS = {
 
 const ORIGIN_IDS = originMarkets.map((m) => m.id);
 
+// Each card flies in from the screen corner named by `pos`.
+const REACH = [
+  { pos: 'tl', value: '1.45 Billion', label: 'Users', delay: 1.2 },
+  { pos: 'bl', value: '740+ Million', label: 'Smartphone users', delay: 1.5 },
+  { pos: 'tr', value: '806 Million', label: 'Internet users', delay: 1.8 },
+  { pos: 'br', value: '554.9 Million', label: 'UPI intent users', delay: 2.1 },
+];
+
 const COLOR = {
   ocean: 0x0a1428,
   land: 0x16233d,
@@ -300,31 +308,49 @@ export default function Preloader({ onDone }) {
 
           <motion.div
             className="preloader-brand"
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, ease }}
           >
-            <span className="preloader-wordmark nav-tricolor">nSERVE</span>
-            <span className="preloader-tagline">Payment Gateway for India</span>
+            <span className="preloader-wordmark-wrap">
+              <span className="preloader-boom-ring" aria-hidden="true" />
+              <span className="preloader-wordmark nav-tricolor">nSERVE</span>
+            </span>
+            <span className="preloader-tagline">
+              <span className="preloader-tagline-left">Payment Gateway</span>
+              <span className="preloader-tagline-right">for India</span>
+            </span>
           </motion.div>
 
-          <motion.div
-            className="preloader-globe"
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.25 }}
-            transition={{ duration: 0.9, ease }}
-            onAnimationComplete={() => setGlobeEntered(true)}
-          >
-            <div className="preloader-atmosphere" aria-hidden="true" />
-            <GatewayGlobe
-              litCount={litCount}
-              entered={globeEntered}
-              onReady={() => setGlobeReady(true)}
-              reducedMotion={reducedMotion}
-            />
-          </motion.div>
+          <div className="preloader-stage">
+            <motion.div
+              className="preloader-globe"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.25 }}
+              transition={{ duration: 0.9, ease }}
+              onAnimationComplete={() => setGlobeEntered(true)}
+            >
+              <div className="preloader-atmosphere" aria-hidden="true" />
+              <GatewayGlobe
+                litCount={litCount}
+                entered={globeEntered}
+                onReady={() => setGlobeReady(true)}
+                reducedMotion={reducedMotion}
+              />
+            </motion.div>
+
+            {REACH.map(({ pos, value, label, delay }) => (
+              <div
+                key={pos}
+                className={`reach-card reach-card--${pos}`}
+                style={{ animationDelay: `${delay}s` }}
+              >
+                <span className="reach-card-eyebrow">Access to</span>
+                <strong className="reach-card-value">{value}</strong>
+                <span className="reach-card-label">{label}</span>
+              </div>
+            ))}
+          </div>
 
           <div className="preloader-foot">
             <div className="preloader-meter">

@@ -2862,6 +2862,8 @@
 
 /* Preloader */
 .preloader {
+  /* Narrow enough to leave room for a reach card on each side of the globe. */
+  --globe: min(60vmin, 500px, calc(100vw - 33.5rem));
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -2909,26 +2911,236 @@
   gap: 0.35rem;
 }
 
+.preloader-wordmark-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
 .preloader-wordmark {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: clamp(2.25rem, 5.5vw, 3.25rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
+  animation: preloader-boom 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.preloader-boom-ring {
+  position: absolute;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid #ff9933;
+  box-shadow: 0 0 24px rgba(255, 153, 51, 0.6), inset 0 0 18px rgba(19, 136, 8, 0.5);
+  opacity: 0;
+  animation: preloader-shockwave 0.9s ease-out 0.45s both;
+  pointer-events: none;
 }
 
 .preloader-tagline {
+  display: flex;
+  gap: 0.45em;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: #94a3b8;
 }
 
-.preloader-globe {
+.preloader-tagline-left,
+.preloader-tagline-right {
+  display: inline-block;
+  animation: 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+.preloader-tagline-left {
+  animation-name: preloader-from-left;
+}
+
+.preloader-tagline-right {
+  color: #fdba74;
+  animation-name: preloader-from-right;
+}
+
+@keyframes preloader-boom {
+  from {
+    opacity: 0;
+    transform: scale(0.12);
+    filter: blur(12px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.3);
+    filter: blur(0);
+  }
+  75% {
+    transform: scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-shockwave {
+  from {
+    opacity: 0.9;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+
+@keyframes preloader-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50vw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(50vw);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.preloader-stage {
   position: relative;
-  width: min(60vmin, 500px);
+  width: var(--globe);
   aspect-ratio: 1;
+}
+
+.preloader-globe {
+  position: absolute;
+  inset: 0;
+}
+
+.reach-card {
+  --tone: #ff9933;
+  --gap: 1.75rem;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: min(14rem, calc((100vw - var(--globe)) / 2 - var(--gap) - 1rem));
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 45%, transparent);
+  background: linear-gradient(150deg, rgba(14, 26, 52, 0.9), rgba(6, 12, 26, 0.75));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.45),
+    0 0 28px color-mix(in srgb, var(--tone) 28%, transparent);
+  animation: reach-to-center 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reach-card-eyebrow {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.reach-card-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #fff 30%, var(--tone));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.reach-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tone);
+}
+
+.reach-card--tl,
+.reach-card--bl {
+  right: calc(100% + var(--gap));
+  text-align: right;
+  align-items: flex-end;
+}
+
+.reach-card--tr,
+.reach-card--br {
+  left: calc(100% + var(--gap));
+}
+
+.reach-card--tl,
+.reach-card--tr {
+  top: 10%;
+}
+
+.reach-card--bl,
+.reach-card--br {
+  bottom: 10%;
+}
+
+.reach-card--tl {
+  --from-x: -50vw;
+  --from-y: -50vh;
+  --nudge: 8px, 8px;
+}
+
+.reach-card--bl {
+  --tone: #22c55e;
+  --from-x: -50vw;
+  --from-y: 50vh;
+  --nudge: 8px, -8px;
+}
+
+.reach-card--tr {
+  --tone: #60a5fa;
+  --from-x: 50vw;
+  --from-y: -50vh;
+  --nudge: -8px, 8px;
+}
+
+.reach-card--br {
+  --tone: #fbbf24;
+  --from-x: 50vw;
+  --from-y: 50vh;
+  --nudge: -8px, -8px;
+}
+
+@keyframes reach-to-center {
+  from {
+    opacity: 0;
+    transform: translate(var(--from-x), var(--from-y)) scale(0.5);
+    filter: blur(6px);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(var(--nudge)) scale(1.04);
+    filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .preloader-atmosphere {
@@ -2988,14 +3200,95 @@
   box-shadow: 0 0 12px rgba(255, 153, 51, 0.5);
 }
 
-@media (max-width: 640px) {
-  .preloader-globe {
-    width: min(88vw, 50vh);
+/* Portrait and narrow screens have no room beside the globe, so the cards sit on its corners. */
+@media (max-aspect-ratio: 1/1), (max-width: 760px) {
+  .preloader {
+    --globe: min(88vw, 50vh, 520px);
+  }
+
+  .reach-card {
+    width: 47%;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.8rem;
+  }
+
+  .reach-card--tl,
+  .reach-card--bl {
+    right: auto;
+    left: 0;
+  }
+
+  .reach-card--tr,
+  .reach-card--br {
+    left: auto;
+    right: 0;
+  }
+
+  .reach-card--tl,
+  .reach-card--tr {
+    top: 0;
+    translate: 0 -60%;
+  }
+
+  .reach-card--bl,
+  .reach-card--br {
+    bottom: 0;
+    translate: 0 60%;
+  }
+
+  .reach-card--tr,
+  .reach-card--br {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .reach-card--tl,
+  .reach-card--bl {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .reach-card-eyebrow {
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+  }
+
+  .reach-card-value {
+    font-size: 1.1rem;
+  }
+
+  .reach-card-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 359px) {
+  .reach-card {
+    width: 49%;
+    padding: 0.45rem 0.55rem;
+  }
+
+  .reach-card-value {
+    font-size: 0.92rem;
+  }
+
+  .reach-card-label {
+    font-size: 0.55rem;
+  }
+
+  .preloader-tagline {
+    letter-spacing: 0.14em;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .preloader-stars {
+  .preloader-stars,
+  .preloader-wordmark,
+  .preloader-boom-ring,
+  .preloader-tagline-left,
+  .preloader-tagline-right,
+  .reach-card {
     animation: none;
   }
 }
